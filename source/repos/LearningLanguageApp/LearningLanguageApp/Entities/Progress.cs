@@ -10,6 +10,8 @@
 
         public bool IsSolved { get; set; }
 
+        public string? SolutionCode { get; set; } = string.Empty;
+
         public User User { get; set; } = null!;
 
         public Task Task { get; set; } = null!;

@@ -10,6 +10,9 @@ builder.Services.AddControllers();
 
 builder.Services.AddOpenApi();
 
+builder.Services.AddSingleton<OllamaSharp.OllamaApiClient>(a =>
+    new OllamaSharp.OllamaApiClient(new Uri("http://localhost:11434"), "qwen2.5-coder:7b"));
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -57,3 +60,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+//мой id который я зарегестрировал для [Authorize] - 01a16eee-6666-7196-a555-16648e1cbff9

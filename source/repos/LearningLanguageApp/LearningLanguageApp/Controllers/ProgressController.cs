@@ -10,6 +10,7 @@ namespace LearningLanguageApp.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class ProgressController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -23,10 +24,10 @@ namespace LearningLanguageApp.Controllers
         public async Task<IActionResult> SolveTask(SolveTaskDto dto)
         {
             var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            //if (string.IsNullOrEmpty(userIdString))
-            //{
-            //    return Unauthorized();
-            //}
+            if (string.IsNullOrEmpty(userIdString))
+            {
+                return Unauthorized();
+            }
             var userId=Guid.Parse(userIdString);
             var taskExists =await _context.Tasks.AnyAsync(i=>i.Id == dto.TaskId);
             if (!taskExists)

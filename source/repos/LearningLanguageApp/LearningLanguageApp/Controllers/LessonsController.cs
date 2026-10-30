@@ -1,5 +1,6 @@
 ﻿using LearningLanguageApp.Data;
 using LearningLanguageApp.Models;
+using LearningLanguageApp.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -65,6 +66,30 @@ namespace LearningLanguageApp.Controllers
                 return NotFound("Урок не найден");
             }
             return Ok(result);
+        }
+
+        [HttpGet("language/{languageId}")]
+        public async Task<IActionResult> GetLanguage(Guid languageId)
+        {
+            var language = await _context.Lessons
+                .Where(i => i.LanguageId == languageId)
+                .Include(t => t.Tasks)
+                .Include(l => l.Language)
+                .Select(l => new LessonResponseDto
+                {
+                    Id = l.Id,
+                    Title = l.Title,
+                    Theory = l.Theory,
+                    LanguageName = l.Language.Name,
+                    Tasks = l.Tasks.Select(t => new TaskResponseDto
+                    {
+                        Id = t.Id,
+                        Description = t.Description
+                    }).ToList()
+                })
+                .ToListAsync();
+            
+            return Ok(language);
         }
     }
 }

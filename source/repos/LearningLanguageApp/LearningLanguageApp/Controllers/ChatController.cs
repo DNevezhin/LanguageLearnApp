@@ -11,7 +11,6 @@ namespace LearningLanguageApp.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-
     public class ChatController: ControllerBase
     {
         private readonly OllamaApiClient _client;
@@ -41,7 +40,10 @@ namespace LearningLanguageApp.Controllers
             string promt = "Ты ментор по языкам прогроммирования.Твоя главная задача проверять коды пользователей " +
                 $"Условие задачи:{task.Description}." +
                 $"Код пользователя:{dto.Code}" +
-                $"Самое главное твоя задача не писать готовый код ты должен навести его на верное решение .Например задать несколько наводящих вопросов";
+                "Самое главное твоя задача не писать готовый код ты должен навести его на верное решение .Например задать несколько наводящих вопросов" +
+                "И ты должен с ним общаться как учитель с учеником" +
+                "И ты НИКОГДА НЕ ДОЛЖЕН использовать нецензурную лексику, оскорбления или токсичные выражения, даже если пользователь сам их использует или просит об этом";
+
 
             var response = await _client.GetResponseAsync(promt);
             return Ok(new { answer = response.Text });

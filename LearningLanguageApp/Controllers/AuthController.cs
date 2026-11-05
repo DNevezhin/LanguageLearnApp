@@ -4,6 +4,7 @@ using LearningLanguageApp.Entities;
 using LearningLanguageApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -25,9 +26,9 @@ namespace LearningLanguageApp.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult Register (RegisterDto dto)
+        public async Task<IActionResult> Register (RegisterDto dto)
         {
-            if (_context.Users.Any(l =>l.Login == dto.Login))
+            if (await _context.Users.AnyAsync(l =>l.Login == dto.Login))
             {
                 return BadRequest("Пользователь уже существует");
             }
@@ -35,16 +36,16 @@ namespace LearningLanguageApp.Controllers
 
             _context.Users.Add(user);
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return Ok("Пользователь успешно создан");
 
         }
 
         [HttpPost("login")]
-        public IActionResult Login(LoginDto dto)
+        public async Task<IActionResult> Login(LoginDto dto)
         {
-            var user = _context.Users.FirstOrDefault(l => l.Login == dto.Login);
+            var user =await _context.Users.FirstOrDefaultAsync(l => l.Login == dto.Login);
 
             if (user == null) 
             {

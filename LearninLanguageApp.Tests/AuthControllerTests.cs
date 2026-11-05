@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 using LearningLanguageApp.Controllers;
 using LearningLanguageApp.Data;
 using LearningLanguageApp.Models;
@@ -35,7 +34,7 @@ namespace LearninLanguageApp.Tests
                 .UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
             using var context = new AppDbContext(options);
             var controller = new AuthController(context, null!);
-
+            
             context.Users.Add(new LearningLanguageApp.Entities.User { Login = "user", Password = "1245dgfg" });
             await context.SaveChangesAsync();
             

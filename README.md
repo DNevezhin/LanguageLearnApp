@@ -59,7 +59,9 @@ dotnet test
 ## Демонстрация работы
 
 **Экран авторизации:**
-<img width="1919" height="992" alt="Экран авторизации" src="https://github.com" />
+<img width="1904" height="992" alt="image" src="https://github.com/user-attachments/assets/3da4b1e1-1ba4-45c1-b794-1e5a0d3497b9" />
+
 
 **Интерфейс урока и ИИ-ментор:**
-<img width="1919" height="992" alt="Интерфейс урока" src="https://github.com" />
+<img width="1905" height="993" alt="image" src="https://github.com/user-attachments/assets/c68608c1-fd6c-4046-a8c7-38dffa1689da" />
+
